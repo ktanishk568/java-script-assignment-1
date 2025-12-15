@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic Image Slider</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial;
+}
+
+/* Background */
+body{
+    height:100vh;
+    background:linear-gradient(120deg,#0f2027,#203a43,#2c5364);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Slider Box */
+.slider{
+    width:650px;
+    height:380px;
+    position:relative;
+    overflow:hidden;
+    border-radius:15px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.6);
+}
+
+/* Images */
+.slider img{
+    width:100%;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    display:none;
+    animation:fade 0.8s;
+}
+
+@keyframes fade{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+
+/* Buttons */
+button{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    background:rgba(0,0,0,0.6);
+    color:white;
+    border:none;
+    padding:10px 15px;
+    font-size:22px;
+    cursor:pointer;
+    border-radius:50%;
+}
+
+.prev{ left:15px; }
+.next{ right:15px; }
+
+/* Dots */
+.dots{
+    position:absolute;
+    bottom:15px;
+    width:100%;
+    text-align:center;
+}
+
+.dot{
+    height:12px;
+    width:12px;
+    background:#bbb;
+    display:inline-block;
+    border-radius:50%;
+    margin:0 5px;
+    cursor:pointer;
+}
+
+.active{
+    background:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="slider">
+    <img src="11.jpg" style="display:block;">
+    <img src="12.jpg">
+    <img src="9.png">
+    <img src="10.jpg">
+
+    <button class="prev" onclick="prevSlide()">❮</button>
+    <button class="next" onclick="nextSlide()">❯</button>
+
+    <div class="dots">
+        <span class="dot active" onclick="setSlide(0)"></span>
+        <span class="dot" onclick="setSlide(1)"></span>
+        <span class="dot" onclick="setSlide(2)"></span>
+        <span class="dot" onclick="setSlide(3)"></span>
+    </div>
+</div>
+
+<script>
+var slides = document.getElementsByTagName("img");
+var dots = document.getElementsByClassName("dot");
+var index = 0;
+
+function showSlide(){
+    for(var i=0;i<slides.length;i++){
+        slides[i].style.display = "none";
+        dots[i].className = "dot";
+    }
+    slides[index].style.display = "block";
+    dots[index].className += " active";
+}
+
+function nextSlide(){
+    index++;
+    if(index >= slides.length){
+        index = 0;
+    }
+    showSlide();
+}
+
+function prevSlide(){
+    index--;
+    if(index < 0){
+        index = slides.length - 1;
+    }
+    showSlide();
+}
+
+function setSlide(n){
+    index = n;
+    showSlide();
+}
+</script>
+
+</body>
+</html>
